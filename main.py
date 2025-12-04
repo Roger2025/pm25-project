@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from datetime import datetime
+from pm25 import get_open_data
 
 app = Flask(__name__)
 
@@ -20,6 +21,13 @@ books = {
         "image_url": "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/036/04/0010360466.jpg&v=62d695bak&w=348&h=348",
     },
 }
+
+
+@app.route("/pm25")
+def get_pm25():
+    values = get_open_data()
+    print(values)
+    return render_template("pm25.html")
 
 
 @app.route("/")
