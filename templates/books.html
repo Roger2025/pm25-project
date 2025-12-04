@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            text-align: center;
+            background-color: blanchedalmond; 
+        }
+        .price{
+            color:red;
+        }
+        .image{
+            border: 1px solid black;
+            padding: 12px 3px;
+            background-color: white;
+            border-radius: 12px;
+        }
+        .title{
+            background-color: blueviolet;
+            color: white;
+            padding: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>書籍列表</h1>
+    {% for id in books %}
+    <p class="title">書名:{{books[id]["name"]}}</p>
+    <p>價格:<span class="price">${{books[id]["price"]}}</span></p>
+    <p>
+        <img class="image "src="{{books[id]['image_url']}}" alt="">
+    </p>
+    <a href="https://www.books.com.tw">購買連結</a>
+    <hr>
+    {% endfor %}
+</body>
+</html>
