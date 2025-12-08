@@ -97,6 +97,10 @@
     #main {
       margin: 0 auto;
     }
+
+    #count {
+      margin: 0 auto;
+    }
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
@@ -109,9 +113,17 @@
   <a href="/update-db">更新資料庫</a>
 
   <div id="main" style="width: 800px;height:600px;"></div>
+  <div id="count" style="width: 800px;height:600px;" hidden></div>
 
-
-
+  <div style="margin: 12px">
+    <label for="countSelect">選擇縣市</label>
+    <select name="countSelect" id="countSelect">
+      <option value="新北市">新北市</option>
+      <option value="臺北市">臺北市</option>
+      <option value="桃園市">桃園市</option>
+    </select>
+    <button id="loadCount" onclick="drawCountChart()">確定</button>
+  </div>
 
   <div id="tableContainer">
     <table border="1px">
@@ -138,45 +150,62 @@
 
 
   <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('main'));
-    $.ajax(
-      {
-        url: "/avg-pm25",
-        type: "GET",
-        dataType: "json",
-        success: (result) => {
-          console.log(result);
-          // 指定图表的配置项和数据
-          var option = {
-            title: {
-              text: '縣市PM2.5平均值'
-            },
-            tooltip: {},
-            legend: {
-              data: ['PM2.5']
-            },
-            xAxis: {
-              data: result["count"]
-            },
-            yAxis: {},
-            series: [
-              {
-                name: 'PM2.5',
-                type: 'bar',
-                data: result["pm25"]
-              }
-            ]
-          };
+    const Chart1 = echarts.init(document.getElementById('main'));
 
-          // 使用刚指定的配置项和数据显示图表。
-          myChart.setOption(option);
-        },
-        error: () => {
-          console.log("讀取資料失敗...")
+    const Chart2 = echarts.init(document.getElementById('count'));
+    const countEl = document.getElementById('count')
+    const countSelectEl = document.querySelector("#countSelect");
+
+    console.log(countSelectEl)
+
+    drawChart(Chart1, "/avg-pm25", "各縣市PM2.5平均值", "count", "pm25")
+
+    function drawCountChart() {
+      count = countSelectEl.value;
+      countEl.hidden = false;
+      console.log(count);
+      drawChart(Chart2, `/count-pm25/${count}`, `${count}PM2.5數據圖`, "site", "pm25")
+    }
+
+    function drawChart(chart, url, title, xKey, yKey) {
+      $.ajax(
+        {
+          url: url,
+          type: "GET",
+          dataType: "json",
+          success: (result) => {
+            console.log(result);
+            // 指定图表的配置项和数据
+            var option = {
+              title: {
+                text: title
+              },
+              tooltip: {},
+              legend: {
+                data: ['PM2.5']
+              },
+              xAxis: {
+                data: result[xKey]
+              },
+              yAxis: {},
+              series: [
+                {
+                  name: 'PM2.5',
+                  type: 'bar',
+                  data: result[yKey]
+                }
+              ]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            chart.setOption(option);
+          },
+          error: () => {
+            console.log("讀取資料失敗...")
+          }
         }
-      }
-    )
-
+      )
+    }
 
   </script>
 </body>

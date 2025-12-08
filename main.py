@@ -40,7 +40,6 @@ def get_count_pm25(count):
                 ensure_ascii=False,
             )
         )
-    print(len(result))
     site = [r[0] for r in result]
     pm25 = [float(r[1]) for r in result]
     datetime = result[0][2].strftime("%Y-%m-%d %H:%M:%S")
