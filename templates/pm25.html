@@ -5,110 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <style>
-    body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: rgb(214, 255, 236);
-    }
 
-    h1 {
-      color: #333;
-    }
-
-    form {
-      text-align: left;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    input[type="number"] {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      box-sizing: border-box;
-    }
-
-    .buttons {
-      text-align: center;
-    }
-
-    button {
-      width: 100px;
-      padding: 10px 15px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #218838;
-    }
-
-    table {
-      border-collapse: collapse;
-      border: 1px solid;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    th,
-    td {
-      border: 1px solid;
-      padding: 8px;
-      text-align: center;
-    }
-
-    td {
-      background-color: rgb(255, 255, 255);
-    }
-
-    thead {
-      background-color: #f2f2f2;
-    }
-
-    #tableContainer {
-      max-height: 500px;
-      overflow-y: auto;
-      border: 1px solid black;
-      width: 65%;
-      margin: 0 auto;
-    }
-
-    @media screen and (max-width: 1024px) {
-      #tableContainer {
-        width: 80%;
-      }
-    }
-
-    @media screen and (max-width: 600px) {
-      #tableContainer {
-        width: 100%;
-      }
-    }
-
-    #main {
-      margin: 0 auto;
-    }
-
-    #count {
-      margin: 0 auto;
-    }
-  </style>
-
+  <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
   <script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
 
 <body>
+  {{counts}}
   <h1>pm2.5數據列表</h1>
   <a href="/update-db">更新資料庫</a>
 
@@ -118,9 +23,9 @@
   <div style="margin: 12px">
     <label for="countSelect">選擇縣市</label>
     <select name="countSelect" id="countSelect">
-      <option value="新北市">新北市</option>
-      <option value="臺北市">臺北市</option>
-      <option value="桃園市">桃園市</option>
+      {% for count in counts %}
+      <option value={{count}}>{{count}}</option>
+      {% endfor %}
     </select>
     <button id="loadCount" onclick="drawCountChart()">確定</button>
   </div>
@@ -158,16 +63,16 @@
 
     console.log(countSelectEl)
 
-    drawChart(Chart1, "/avg-pm25", "各縣市PM2.5平均值", "count", "pm25")
+    drawChart(Chart1, "/avg-pm25", "各縣市PM2.5平均值", "count", "pm25", "green")
 
     function drawCountChart() {
       count = countSelectEl.value;
       countEl.hidden = false;
       console.log(count);
-      drawChart(Chart2, `/count-pm25/${count}`, `${count}PM2.5數據圖`, "site", "pm25")
+      drawChart(Chart2, `/count-pm25/${count}`, `${count}PM2.5數據圖`, "site", "pm25", "red")
     }
 
-    function drawChart(chart, url, title, xKey, yKey) {
+    function drawChart(chart, url, title, xKey, yKey, color) {
       $.ajax(
         {
           url: url,
@@ -190,6 +95,9 @@
               yAxis: {},
               series: [
                 {
+                  itemStyle: {
+                    color: color
+                  },
                   name: 'PM2.5',
                   type: 'bar',
                   data: result[yKey]

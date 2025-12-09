@@ -1,0 +1,97 @@
+
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: rgb(214, 255, 236);
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    form {
+      text-align: left;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      text-align: center;
+    }
+
+    button {
+      width: 100px;
+      padding: 10px 15px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    table {
+      border-collapse: collapse;
+      border: 1px solid;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    th,
+    td {
+      border: 1px solid;
+      padding: 8px;
+      text-align: center;
+    }
+
+    td {
+      background-color: rgb(255, 255, 255);
+    }
+
+    thead {
+      background-color: #f2f2f2;
+    }
+
+    #tableContainer {
+      max-height: 500px;
+      overflow-y: auto;
+      border: 1px solid black;
+      width: 65%;
+      margin: 0 auto;
+    }
+
+    @media screen and (max-width: 1024px) {
+      #tableContainer {
+        width: 80%;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      #tableContainer {
+        width: 100%;
+      }
+    }
+
+    #main {
+      margin: 0 auto;
+    }
+
+    #count {
+      margin: 0 auto;
+    }
+ 
