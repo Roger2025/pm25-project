@@ -16,8 +16,8 @@
   <h1>pm2.5數據列表</h1>
   <h1><a href="/update-db">更新資料庫</a></h1>
 
-  <div id="main" style="width: 800px;height:600px;"></div>
-  <div id="count" style="width: 800px;height:600px;" hidden></div>
+  <div id="main"></div>
+  <div id="count" hidden></div>
 
   <div style="margin: 12px">
     <label for="countSelect">選擇縣市</label>
@@ -69,6 +69,10 @@
       countEl.hidden = false;
       console.log(count);
       drawChart(Chart2, `/count-pm25/${count}`, `${count}PM2.5數據圖`, "site", "pm25", "#f28500")
+      // ⭐ 關鍵：讓第二張圖在顯示後重算大小
+      setTimeout(() => {
+        Chart2.resize();
+      }, 50);
     }
 
     function drawChart(chart, url, title, xKey, yKey, color) {

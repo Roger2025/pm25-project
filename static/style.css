@@ -111,11 +111,12 @@ body {
     }
 
     @media screen and (max-width: 768px) {
-        #main,
-        #count {
-            width: 90%;   /* 改成百分比 */
-            height: auto;
-            aspect-ratio: 1.3;  /* 手機不會變扁 */
-            max-width: 700px;  /* 桌機上不會太大 */
-        }
+    #main,
+    #count {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 1.8;  /* 不會扁掉 */
+        margin: 20px auto;
     }
+}
