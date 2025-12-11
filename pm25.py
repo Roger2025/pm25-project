@@ -17,17 +17,6 @@ unique key site_time (site,datacreationdate)
 )
 """
 
-table_str = """
-create table if not exists pm25{
-id auto_increment primary key,
-site varchar(25),
-count varchar(10),
-pm25 int,
-datacreationdate datetime,
-unique key site_time (site,datacreationdate)
-}
-"""
-
 url = "https://data.moenv.gov.tw/api/v2/aqx_p_02?api_key=4c89a32a-a214-461b-bf29-30ff32a61a8a&limit=1000&sort=datacreationdate%20desc&format=JSON"
 
 sqlstr = "insert ignore into pm25 (site,count,pm25,datacreationdate,itemunit)\
