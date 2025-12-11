@@ -111,7 +111,7 @@ body {
 
     @media screen and (max-width: 768px) {
         #main,
-        #county {
+        #count {
             width: 90%;   /* 改成百分比 */
             height: 400px;
             margin: 20px auto;
