@@ -17,6 +17,17 @@ unique key site_time (site,datacreationdate)
 )
 """
 
+table_str = """
+create table if not exists pm25{
+id auto_increment primary key,
+site varchar(25),
+count varchar(10),
+pm25 int,
+datacreationdate datetime,
+unique key site_time (site,datacreationdate)
+}
+"""
+
 url = "https://data.moenv.gov.tw/api/v2/aqx_p_02?api_key=4c89a32a-a214-461b-bf29-30ff32a61a8a&limit=1000&sort=datacreationdate%20desc&format=JSON"
 
 sqlstr = "insert ignore into pm25 (site,count,pm25,datacreationdate,itemunit)\
@@ -25,24 +36,31 @@ sqlstr = "insert ignore into pm25 (site,count,pm25,datacreationdate,itemunit)\
 conn, cursor = None, None
 
 
+import os
+import pymysql
+
+
 def open_db():
     global conn, cursor
     try:
         conn = pymysql.connect(
-            host="mysql-12b99084-pm25.c.aivencloud.com",
-            user="avnadmin",
-            password=os.getenv("DB_PASSWORD"),
-            port=21697,
-            database="defaultdb",
+            host=os.environ["MYSQL_HOST"],
+            user=os.environ["MYSQL_USER"],
+            password=os.environ["MYSQL_PASSWORD"],
+            port=int(os.environ["MYSQL_PORT"]),
+            database=os.environ["MYSQL_DB"],
+            charset="utf8mb4",
+            cursorclass=pymysql.cursors.Cursor,
+            ssl={"ssl": {}},  # Aiven 需要 SSL
         )
 
-        # print(conn)
         cursor = conn.cursor()
         cursor.execute(table_str)
         conn.commit()
         print("資料庫開啟成功!")
+
     except Exception as e:
-        print(e)
+        print("資料庫開啟失敗：", e)
 
 
 def close_db():
@@ -109,7 +127,7 @@ def get_data_from_mysql():
         # 取得不重複縣市名稱
         sqlstr = "select distinct count from pm25;"
         cursor.execute(sqlstr)
-        counts = [i[0] for i in cursor.fetchall()]
+        counts = [count[0] for count in cursor.fetchall()]
 
         return datas, counts
     except Exception as e:
