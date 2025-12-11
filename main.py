@@ -79,6 +79,7 @@ def update_db():
     return json.dumps(result, ensure_ascii=False)
 
 
+@app.route("/")
 @app.route("/pm25")
 def get_pm25():
     values, counts = get_data_from_mysql()
@@ -87,7 +88,6 @@ def get_pm25():
     return render_template("pm25.html", values=values, columns=columns, counts=counts)
 
 
-@app.route("/")
 def index():
     time = now_time()
     return render_template("index.html", time=time, name="Roger2022")
@@ -119,4 +119,5 @@ def get_books(id=None):
         return f"書籍編號錯誤:{e}"
 
 
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)

@@ -1,97 +1,120 @@
-
-    body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: rgb(214, 255, 236);
+body {
+        text-align: center;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        margin: 20px;
+        background-color: #f9fafc;  /* 淡灰底 */
+        color: #333;
     }
 
     h1 {
-      color: #333;
+        margin-bottom: 20px;
+        color: #444;
     }
 
-    form {
-      text-align: left;
-      max-width: 400px;
-      margin: 0 auto;
+    a {
+        display: inline-block;
+        margin-bottom: 20px;
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    #main,
+    #count {
+        margin: 0 auto 30px auto;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    /* 選擇功能區 */
+    .select-container {
+        margin: 20px auto;
+        text-align: center;
     }
 
     label {
-      display: block;
-      margin-bottom: 8px;
+        margin-right: 10px;
+        font-weight: bold;
     }
 
-    input[type="number"] {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      box-sizing: border-box;
-    }
-
-    .buttons {
-      text-align: center;
+    select,
+    button {
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
     }
 
     button {
-      width: 100px;
-      padding: 10px 15px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      cursor: pointer;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
     }
 
     button:hover {
-      background-color: #218838;
+        background-color: #218838;
+    }
+
+    /* 表格 */
+
+    #tableContainer {
+        max-height: 500px;
+        overflow-y: auto;
+        width: 70%;
+        margin: 20px auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        background: #fff;
     }
 
     table {
-      border-collapse: collapse;
-      border: 1px solid;
-      margin: 0 auto;
-      width: 100%;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    thead {
+        background-color: #f1f1f1;
     }
 
     th,
     td {
-      border: 1px solid;
-      padding: 8px;
-      text-align: center;
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #e0e0e0;
     }
 
-    td {
-      background-color: rgb(255, 255, 255);
+    tr:hover td {
+        background-color: #fafafa;
     }
 
-    thead {
-      background-color: #f2f2f2;
-    }
 
-    #tableContainer {
-      max-height: 500px;
-      overflow-y: auto;
-      border: 1px solid black;
-      width: 65%;
-      margin: 0 auto;
-    }
-
+    /* RWD 表格縮小 */
     @media screen and (max-width: 1024px) {
-      #tableContainer {
-        width: 80%;
-      }
+        #tableContainer {
+            width: 80%;
+        }
     }
 
     @media screen and (max-width: 600px) {
-      #tableContainer {
-        width: 100%;
-      }
+        #tableContainer {
+            width: 100%;
+        }
     }
 
-    #main {
-      margin: 0 auto;
+    @media screen and (max-width: 768px) {
+        #main,
+        #county {
+            width: 90%;   /* 改成百分比 */
+            height: 400px;
+            margin: 20px auto;
+            max-width: 700px;  /* 桌機上不會太大 */
+        }
     }
-
-    #count {
-      margin: 0 auto;
-    }
- 

@@ -13,9 +13,8 @@
 </head>
 
 <body>
-  {{counts}}
   <h1>pm2.5數據列表</h1>
-  <a href="/update-db">更新資料庫</a>
+  <h1><a href="/update-db">更新資料庫</a></h1>
 
   <div id="main" style="width: 800px;height:600px;"></div>
   <div id="count" style="width: 800px;height:600px;" hidden></div>
@@ -69,7 +68,7 @@
       count = countSelectEl.value;
       countEl.hidden = false;
       console.log(count);
-      drawChart(Chart2, `/count-pm25/${count}`, `${count}PM2.5數據圖`, "site", "pm25", "red")
+      drawChart(Chart2, `/count-pm25/${count}`, `${count}PM2.5數據圖`, "site", "pm25", "#f28500")
     }
 
     function drawChart(chart, url, title, xKey, yKey, color) {
