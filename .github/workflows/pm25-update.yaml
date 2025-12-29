@@ -1,0 +1,17 @@
+name: Update PM2.5 DB
+
+on:
+  schedule:
+    # GitHub Actions 使用 UTC
+    # 台灣時間 23:30 = UTC 15:30
+    - cron: '30 15 * * *'
+  workflow_dispatch: # 可手動執行
+
+jobs:
+  curl-update-db:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call /update-db endpoint
+        run: |
+          curl -s https://pm25-project-7htv.onrender.com/update-db
